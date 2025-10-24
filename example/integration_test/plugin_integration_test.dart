@@ -17,9 +17,30 @@ void main() {
 
   testWidgets('getPlatformVersion test', (WidgetTester tester) async {
     final BatteryPlus plugin = BatteryPlus();
-    final String? version = await plugin.getPlatformVersion();
-    // The version string depends on the host platform running the test, so
-    // just assert that some non-empty string is returned.
-    expect(version?.isNotEmpty, true);
+    final int level = await plugin.getBatteryLevel();
+    
+     expect(level, isNotNull, reason: 'Battery level should not be null');
+    final int value = level;
+    expect(value, greaterThanOrEqualTo(0),
+        reason: 'Battery level should be >= 0');
+    expect(value, lessThanOrEqualTo(100),
+        reason: 'Battery level should be <= 100');
+  });
+
+  testWidgets('multiple getBatteryLevel calls return valid percentages',
+      (WidgetTester tester) async {
+    final BatteryPlus plugin = BatteryPlus();
+    final int first = await plugin.getBatteryLevel();
+    final int second = await plugin.getBatteryLevel();
+
+    expect(first, isNotNull, reason: 'First battery level should not be null');
+    expect(second, isNotNull, reason: 'Second battery level should not be null');
+
+    final int a = first;
+    final int b = second;
+    expect(a, inInclusiveRange(0, 100),
+        reason: 'First battery level should be between 0 and 100');
+    expect(b, inInclusiveRange(0, 100),
+        reason: 'Second battery level should be between 0 and 100');
   });
 }

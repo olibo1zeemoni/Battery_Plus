@@ -23,7 +23,8 @@ abstract class BatteryPlusPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  Future<int> getBatteryLevel() {
+    // Implementation should be provided by subclasses.
+    throw UnimplementedError('getBatteryLevel() has not been implemented.');
   }
 }

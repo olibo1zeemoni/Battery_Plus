@@ -9,7 +9,7 @@ class MockBatteryPlusPlatform
     implements BatteryPlusPlatform {
 
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
+  Future<int> getBatteryLevel() => Future.value(42);
 }
 
 void main() {
@@ -19,11 +19,11 @@ void main() {
     expect(initialPlatform, isInstanceOf<MethodChannelBatteryPlus>());
   });
 
-  test('getPlatformVersion', () async {
+  test('getBatteryLevel', () async {
     BatteryPlus batteryPlusPlugin = BatteryPlus();
     MockBatteryPlusPlatform fakePlatform = MockBatteryPlusPlatform();
     BatteryPlusPlatform.instance = fakePlatform;
 
-    expect(await batteryPlusPlugin.getPlatformVersion(), '42');
+    expect(await batteryPlusPlugin.getBatteryLevel(), 42);
   });
 }

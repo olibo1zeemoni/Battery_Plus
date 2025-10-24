@@ -10,8 +10,8 @@ class MethodChannelBatteryPlus extends BatteryPlusPlatform {
   final methodChannel = const MethodChannel('battery_plus');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<int> getBatteryLevel() async {
+    final level = await methodChannel.invokeMethod<int>('getBatteryLevel');
+    return level ?? 0;
   }
 }
